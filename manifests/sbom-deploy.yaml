@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sbom
+  namespace: staging
+  labels:
+    app: sbom
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sbom
+  template:
+    metadata:
+      labels:
+        app: sbom
+    spec:
+      containers:
+        - name: sbom
+          image: ghcr.io/haleema33/sbom:staging-1.0.0
+          ports:
+            - containerPort: 8081
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: myesi-secrets
+                  key: SBOM_DATABASE_URL
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: myesi-secrets
+                  key: JWT_SECRET
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sbom
+  namespace: staging
+spec:
+  ports:
+    - port: 80
+      targetPort: 8081
+  selector:
+    app: sbom
+  type: ClusterIP

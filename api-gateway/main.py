@@ -9,3 +9,4 @@ def health_check():
 @app.get("/gateway")
 def gateway_info():
     return {"message": "API Gateway running"}
+

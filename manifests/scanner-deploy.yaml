@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scanner
+  namespace: staging
+  labels:
+    app: scanner
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: scanner
+  template:
+    metadata:
+      labels:
+        app: scanner
+    spec:
+      containers:
+        - name: scanner
+          image: ghcr.io/haleema33/scanner:staging-1.0.0
+          ports:
+            - containerPort: 8082
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: myesi-secrets
+                  key: SCANNER_DATABASE_URL
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: myesi-secrets
+                  key: JWT_SECRET
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8082
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8082
+            initialDelaySeconds: 30
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scanner
+  namespace: staging
+spec:
+  ports:
+    - port: 80
+      targetPort: 8082
+  selector:
+    app: scanner
+  type: ClusterIP
