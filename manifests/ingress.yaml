@@ -5,43 +5,63 @@ metadata:
   namespace: staging
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: "10m"
 spec:
+  tls:
+    - hosts:
+        - staging.myesi.local
+      secretName: myesi-tls
   rules:
-  - host: staging.myesi.local
-    http:
-      paths:
-        - path: /api/gateway(/|$)(.*)
-          pathType: ImplementationSpecific
+    - host: staging.myesi.local
+
+      http:
+        paths:
+        # --- API Gateway ---
+        - path: /api/gateway
+          pathType: Prefix
           backend:
             service:
               name: api-gateway
               port:
                 number: 80
-        - path: /api/billing(/|$)(.*)
-          pathType: ImplementationSpecific
+
+        # Root should also go to API Gateway (so "/" shows docs)
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: api-gateway
+              port:
+                number: 80
+
+        # --- Other Microservices ---
+        - path: /api/billing
+          pathType: Prefix
           backend:
             service:
               name: billing
               port:
                 number: 80
-        - path: /api/sbom(/|$)(.*)
-          pathType: ImplementationSpecific
+
+        - path: /api/sbom
+          pathType: Prefix
           backend:
             service:
               name: sbom
               port:
                 number: 80
-        - path: /api/scanner(/|$)(.*)
-          pathType: ImplementationSpecific
+
+        - path: /api/scanner
+          pathType: Prefix
           backend:
             service:
               name: scanner
               port:
                 number: 80
-        - path: /api/risk(/|$)(.*)
-          pathType: ImplementationSpecific
+
+        - path: /api/risk
+          pathType: Prefix
           backend:
             service:
               name: risk
