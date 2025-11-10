@@ -17,10 +17,18 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: ghcr.io/haleema33/api-gateway:staging-1.0.0
+          image: ghcr.io/haleema33/api-gateway:staging-1.0.6
           ports:
             - containerPort: 80
           env:
+            - name: BILLING_URL
+              value: "http://billing.staging.svc.cluster.local"
+            - name: RISK_URL
+              value: "http://risk.staging.svc.cluster.local"
+            - name: SBOM_URL
+              value: "http://sbom.staging.svc.cluster.local"
+            - name: SCANNER_URL
+              value: "http://scanner.staging.svc.cluster.local"
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:

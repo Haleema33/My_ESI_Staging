@@ -1,0 +1,49 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myesi-staging-ingress
+  namespace: staging
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+spec:
+  rules:
+  - host: staging.myesi.local
+    http:
+      paths:
+        - path: /api/gateway(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: api-gateway
+              port:
+                number: 80
+        - path: /api/billing(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: billing
+              port:
+                number: 80
+        - path: /api/sbom(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: sbom
+              port:
+                number: 80
+        - path: /api/scanner(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: scanner
+              port:
+                number: 80
+        - path: /api/risk(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: risk
+              port:
+                number: 80
