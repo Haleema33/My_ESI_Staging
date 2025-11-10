@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="SBOM Service")
+app = FastAPI(title="SBOM Service",
+              root_path="/api/gateway/sbom")
 
 @app.get("/health")
 def health_check():

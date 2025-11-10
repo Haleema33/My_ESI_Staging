@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="Scanner Service")
+app = FastAPI(title="Scanner Service",
+              root_path="/api/gateway/scanner")
 
 @app.get("/health")
 def health_check():

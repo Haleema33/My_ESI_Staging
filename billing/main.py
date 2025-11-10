@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="Billing Service")
+app = FastAPI(title="Billing Service",
+              root_path="/api/gateway/billing")
 
 @app.get("/health")
 def health_check():

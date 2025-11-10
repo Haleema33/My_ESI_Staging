@@ -3,6 +3,7 @@ fastapi
 fastapi-users
 uvicorn
 python-dotenv
+httpx
 
 flask
 requests

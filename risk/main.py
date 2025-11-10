@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="Risk Service")
+app = FastAPI(title="Risk Service",
+              root_path="/api/gateway/risk")
 
 @app.get("/health")
 def health_check():
