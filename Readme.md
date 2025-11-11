@@ -111,11 +111,11 @@ Secrets and sensitive values should be stored in Kubernetes `Secrets` (not commi
 All services expose interactive Swagger documentation for API testing and exploration. Open any of the following in a browser:
 
 - https://staging.myesi.local/api/gateway/docs
-- https://staging.myesi.local/api/billing/docs
-- https://staging.myesi.local/api/risk/docs
-- https://staging.myesi.local/api/sbom/docs
-- https://staging.myesi.local/api/scanner/docs
-- https://staging.myesi.local/api/auth/docs
+- https://staging.myesi.local/api/gateway/billing/docs
+- https://staging.myesi.local/api/gateway/risk/docs
+- https://staging.myesi.local/api/gateway/sbom/docs
+- https://staging.myesi.local/api/gateway/scanner/docs
+- https://staging.myesi.local/api/gateway/auth/docs
 
 You can also view gateway-level aggregated docs or nested docs, for example:
 
