@@ -15,11 +15,11 @@ Each service exposes interactive Swagger docs at the URLs below.
 | Service | Swagger Docs URL | Description |
 |---|---|---|
 | 🌀 API Gateway | https://staging.myesi.local/api/gateway/docs | Main routing layer handling requests between services |
-| 💳 Billing Service | https://staging.myesi.local/api/billing/docs | Handles payments and invoice management |
-| 🧠 Risk Analysis Service | https://staging.myesi.local/api/risk/docs | Performs risk computations for uploaded artifacts |
-| 🧾 SBOM Service | https://staging.myesi.local/api/sbom/docs | Generates and manages Software Bill of Materials |
-| 🔍 Scanner Service | https://staging.myesi.local/api/scanner/docs | Scans dependencies for vulnerabilities |
-| 🔐 Auth Service | https://staging.myesi.local/api/auth/docs | Handles user authentication and JWT management |
+| 💳 Billing Service | https://staging.myesi.local/api/gateway/billing/docs | Handles payments and invoice management |
+| 🧠 Risk Analysis Service | https://staging.myesi.local/api/gateway/risk/docs | Performs risk computations for uploaded artifacts |
+| 🧾 SBOM Service | https://staging.myesi.local/api/gateway/sbom/docs | Generates and manages Software Bill of Materials |
+| 🔍 Scanner Service | https://staging.myesi.local/api/gateway/scanner/docs | Scans dependencies for vulnerabilities |
+| 🔐 Auth Service | https://staging.myesi.local/api/gateway/auth/docs | Handles user authentication and JWT management |
 
 ---
 
