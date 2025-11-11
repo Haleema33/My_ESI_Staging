@@ -23,6 +23,8 @@ BILLING_URL = os.getenv("BILLING_URL", "http://billing.staging.svc.cluster.local
 RISK_URL = os.getenv("RISK_URL", "http://risk.staging.svc.cluster.local")
 SBOM_URL = os.getenv("SBOM_URL", "http://sbom.staging.svc.cluster.local")
 SCANNER_URL = os.getenv("SCANNER_URL", "http://scanner.staging.svc.cluster.local")
+AUTH_URL = os.getenv("AUTH_URL", "http://auth.staging.svc.cluster.local")
+
 
 # Helper function to forward requests
 async def forward_request(url: str, request: Request):
@@ -60,4 +62,10 @@ async def sbom_proxy(path: str, request: Request):
 @app.api_route("/scanner/{path:path}", methods=["GET", "POST", "PUT", "DELETE"])
 async def scanner_proxy(path: str, request: Request):
     url = f"{SCANNER_URL}/{path}"
+    return await forward_request(url, request)
+
+# Example route for Auth
+@app.api_route("/auth/{path:path}", methods=["GET", "POST", "PUT", "DELETE"])
+async def scanner_proxy(path: str, request: Request):
+    url = f"{AUTH_URL}/{path}"
     return await forward_request(url, request)

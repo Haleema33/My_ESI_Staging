@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: risk
+  name: auth
   namespace: staging
   labels:
-    app: risk
+    app: auth
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: risk
+      app: auth
   template:
     metadata:
       labels:
-        app: risk
+        app: auth
     spec:
       containers:
-        - name: risk
-          image: ghcr.io/haleema33/risk:staging-1.0.0
+        - name: auth
+          image: ghcr.io/haleema33/auth:staging-1.0.1
           ports:
-            - containerPort: 8083
+            - containerPort: 8084
           env:
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
                   name: myesi-secrets
-                  key: RISK_DATABASE_URL
+                  key: AUTH_DATABASE_URL
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
@@ -34,26 +34,26 @@ spec:
           readinessProbe:
             httpGet:
               path: /health
-              port: 8083
+              port: 8084
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /health
-              port: 8083
+              port: 8084
             initialDelaySeconds: 30
             periodSeconds: 20
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: risk
+  name: auth
   namespace: staging
 spec:
   ports:
     - port: 80
-      targetPort: 8083
+      targetPort: 8084
   selector:
-    app: risk
+    app: auth
   type: ClusterIP
 

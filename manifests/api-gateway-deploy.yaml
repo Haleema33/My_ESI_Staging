@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: ghcr.io/haleema33/api-gateway:staging-1.0.6
+          image: ghcr.io/haleema33/api-gateway:staging-1.0.0
           ports:
             - containerPort: 80
           env:
