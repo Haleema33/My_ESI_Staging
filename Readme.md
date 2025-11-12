@@ -8,7 +8,7 @@ The MyESI Staging Environment hosts multiple microservices working together to d
 
 All services are available under the same domain:
 
-https://staging.myesi.local
+https://staging.myesi.local/docs
 
 Each service exposes interactive Swagger docs at the URLs below.
 
